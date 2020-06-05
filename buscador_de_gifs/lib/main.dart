@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:buscadordegifs/ui/HomePage.dart';
+import 'package:buscadordegifs/ui/home_page.dart';
 
 void main() {
   runApp(MaterialApp(
