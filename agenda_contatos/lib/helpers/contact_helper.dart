@@ -8,6 +8,44 @@ final String emailColumn = "emailColumn";
 final String phoneColumn = "phoneColumn";
 final String imgColumn = "imgColumn";
 
+class Contact {
+  int id;
+  String name;
+  String email;
+  String phone;
+  String img;
+
+  Contact() {
+
+  }
+
+  Contact.fromMap(Map map) {
+    id = map[idColumn];
+    name = map[nameColumn];
+    email = map[emailColumn];
+    phone = map[phoneColumn];
+    img = map[imgColumn];
+  }
+
+  Map toMap() {
+    Map<String, dynamic> map = {
+      nameColumn: name,
+      emailColumn: email,
+      phoneColumn: phone,
+      imgColumn: img
+    };
+
+    if (id != null) map[idColumn] = id;
+
+    return map;
+  }
+
+  @override
+  String toString() {
+    return "Contact(id = $id, nome = $name, email = $email, phone = $phone, img = $img)";
+  }
+}
+
 class ContactHelper {
   static final ContactHelper _instance = ContactHelper.internal();
 
@@ -27,7 +65,7 @@ class ContactHelper {
 
   Future<Database> initDb() async {
     final dataBasesPath = await getDatabasesPath();
-    final path = join(dataBasesPath, "contacts.db");
+    final path = join(dataBasesPath, "contacts2.db");
 
     return await openDatabase(path, version: 1,
         onCreate: (Database db, int newVersion) async {
@@ -59,7 +97,7 @@ class ContactHelper {
   Future<int> deleteContact(int id) async {
     Database dbContact = await db;
     return await dbContact.delete(contactTable,
-        where: "$idColumn = ?", whereArgs: [id);
+        where: "$idColumn = ?", whereArgs: [id]);
   }
 
   Future<int> updateContact(Contact contact) async {
@@ -85,7 +123,7 @@ class ContactHelper {
   Future<int> getNumber() async {
     Database dbContact = await db;
     return Sqflite.firstIntValue(
-        await dbContact.rawQuery("SELECT COUNT(*) FROM $contactTable"))
+        await dbContact.rawQuery("SELECT COUNT(*) FROM $contactTable"));
   }
 
   Future close() async {
@@ -93,38 +131,4 @@ class ContactHelper {
     dbContact.close();
   }
 
-}
-
-class Contact {
-  int id;
-  String name;
-  String email;
-  String phone;
-  String img;
-
-  Contact.fromMap(Map map) {
-    id = map[idColumn];
-    name = map[nameColumn];
-    email = map[emailColumn];
-    phone = map[phoneColumn];
-    img = map[imgColumn];
-  }
-
-  Map toMap() {
-    Map<String, dynamic> map = {
-      nameColumn: name,
-      emailColumn: email,
-      phoneColumn: phone,
-      imgColumn: img
-    };
-
-    if (id != null) map[idColumn] = id;
-
-    return map;
-  }
-
-  @override
-  String toString() {
-    return "Contact(id = $id, nome = $name, email = $email, phone = $phone, img = $img)";
-  }
 }
