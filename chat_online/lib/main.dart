@@ -5,18 +5,6 @@ import 'package:chatonline/chat_screen.dart';
 
 void main() async {
   runApp(MyApp());
-  QuerySnapshot snapshot =
-      await Firestore.instance.collection("mensagens").getDocuments();
-  snapshot.documents.forEach((d) {
-    print(d.data);
-  });
-}
-
-void inserir() {
-  Firestore.instance
-      .collection("mensagens")
-      .document()
-      .setData({"texto": "Olá", "from": "Daniel", "lida": true});
 }
 
 class MyApp extends StatelessWidget {
