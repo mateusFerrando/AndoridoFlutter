@@ -57,7 +57,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               textColor: Colors.white,
                               disabledColor: Colors.pinkAccent.withAlpha(140),
                               disabledTextColor: Colors.white,
-                              onPressed: snapshot.hasData ? () {} : null,
+                              onPressed:
+                                  snapshot.hasData ? _loginBloc.submit : null,
                             ));
                       },
                     )
